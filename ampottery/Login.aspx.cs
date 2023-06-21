@@ -29,12 +29,19 @@ namespace ampottery
                 if (negocio.Loguear(usuario))
                 {
                     Session.Add("usuario", usuario);
-                    Response.Redirect("../LoginUser.aspx", false);
+                    if (((dominio.Usuario)Session["usuario"]).TipoUsuario == dominio.TipoUsuario.ADMIN)
+                    {
+                        Response.Redirect("LoginAdmin.aspx");
+                    }
+                    else
+                    {
+                        Response.Redirect("LoginUser.aspx");
+                    }
                 }
                 else
                 {
                     Session.Add("error", "Usuario o contraseña incorretos");
-                    Response.Redirect("../LoginError.aspx", false); 
+                    Response.Redirect("LoginError.aspx", false); 
                 }
 
 

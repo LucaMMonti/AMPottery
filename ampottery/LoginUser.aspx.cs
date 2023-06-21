@@ -11,7 +11,11 @@ namespace ampottery
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (Session["usuario"] == null || (((dominio.Usuario)Session["usuario"]).TipoUsuario != dominio.TipoUsuario.NORMAL))
+            {
+                Session.Add("error", "Debes loguearte para ingresar");
+                Response.Redirect("LoginError.aspx", false);
+            }
         }
     }
 }
